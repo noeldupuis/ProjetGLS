@@ -2,8 +2,121 @@ grammar xtext.Jeu with org.eclipse.xtext.common.Terminals
 
 generate jeu "http://www.Jeu.xtext"
 
-Model:
-	greetings+=Greeting*;
-	
-Greeting:
-	'Hello' name=ID '!';
+Jeu returns Jeu:
+	'Jeu'
+	'{'
+		('nom' nom=EString)?
+		'lieuDebut' lieuDebut=[Lieu]
+		('lieu' '(' lieu+=[Lieu] ( "," lieu+=[Lieu])* ')' )?
+		'lieuFin' '(' lieuFin+=[Lieu] ( "," lieuFin+=[Lieu])* ')' 
+		'explorateur' explorateur=[Explorateur]
+	'}';
+
+
+
+Composant returns Composant:
+	Objet | Connaissance;
+
+
+
+EString returns EString:
+	STRING | ID;
+
+
+
+Lieu returns Lieu:
+	'Lieu'
+	'{'
+		('nom' nom=EString)?
+		('composant' '(' composant+=[Composant] ( "," composant+=[Composant])* ')' )?
+		'chemin' '{' chemin+=Chemin ( "," chemin+=Chemin)* '}' 
+		('personnageObligatoire' personnageObligatoire=PersonnageNonJouable)?
+		('personnage' '{' personnage+=PersonnageNonJouable ( "," personnage+=PersonnageNonJouable)* '}' )?
+	'}';
+
+
+
+Explorateur returns Explorateur:
+	{Explorateur}
+	'Explorateur'
+	'{'
+		('nom' nom=EString)?
+		('capaciteObjets' capaciteObjets=EInt)?
+		('composant' '(' composant+=[Composant] ( "," composant+=[Composant])* ')' )?
+	'}';
+
+
+
+Chemin returns Chemin:
+	'Chemin'
+	'{'
+		('nom' nom=EString)?
+		('condition' condition=[Condition])?
+		'lieuArrivee' lieuArrivee=[Lieu]
+	'}';
+
+
+
+PersonnageNonJouable returns PersonnageNonJouable:
+	{PersonnageNonJouable}
+	'PersonnageNonJouable'
+	'{'
+		('nom' nom=EString)?
+		('composant' '(' composant+=[Composant] ( "," composant+=[Composant])* ')' )?
+		('action' '{' action+=Action ( "," action+=Action)* '}' )?
+	'}';
+
+
+
+Condition returns Condition:
+	{Condition}
+	'Condition'
+	'{'
+		('nom' nom=EString)?
+		('niveau' niveau=Niveau)?
+	'}';
+
+
+
+enum Niveau returns Niveau:
+				FACILE = 'FACILE' | MOYEN = 'MOYEN' | DIFFICILE = 'DIFFICILE';
+
+
+
+Action returns Action:
+	{Action}
+	'Action'
+	'{'
+		('nom' nom=EString)?
+	'}';
+
+
+
+EBoolean returns EBoolean:
+	'true' | 'false';
+
+
+
+Objet returns Objet:
+	{Objet}
+	(visible?='visible')?
+	'Objet'
+	'{'
+		('nom' nom=EString)?
+		('poids' poids=EInt)?
+	'}';
+
+
+
+Connaissance returns Connaissance:
+	{Connaissance}
+	(visible?='visible')?
+	'Connaissance'
+	'{'
+		('nom' nom=EString)?
+	'}';
+
+
+
+EInt returns EInt:
+	'-'? INT;
