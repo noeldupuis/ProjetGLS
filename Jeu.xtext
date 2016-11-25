@@ -1,0 +1,9 @@
+grammar xtext.Jeu with org.eclipse.xtext.common.Terminals
+
+generate jeu "http://www.Jeu.xtext"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
