@@ -1,0 +1,97 @@
+grammar org.xtext.example.jeu.Jeu with org.eclipse.xtext.common.Terminals
+
+import "http://www.Jeu.xtext" 
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+Jeu returns Jeu:
+	'Jeu'
+	'{'
+		'nom' nom=EString
+		'lieuDebut' lieuDebut=Lieu
+		('lieu' '{' lieu+=Lieu ( "," lieu+=Lieu)* '}' )?
+		'lieuFin' '{' lieuFin+=Lieu ( "," lieuFin+=Lieu)* '}' 
+		'explorateur' explorateur=Explorateur
+	'}';
+
+
+
+Composant returns Composant:
+	Composant_Impl | Objet | Connaissance;
+
+
+
+
+
+Lieu returns Lieu:
+	{Lieu}
+	'Lieu'
+	'{'
+		('composant' '{' composant+=Composant ( "," composant+=Composant)* '}' )?
+		('chemin' '{' chemin+=Chemin ( "," chemin+=Chemin)* '}' )?
+		('personnageObligatoire' personnageObligatoire=PersonnageNonJouable)?
+		('personnage' '{' personnage+=PersonnageNonJouable ( "," personnage+=PersonnageNonJouable)* '}' )?
+	'}';
+
+Explorateur returns Explorateur:
+	'Explorateur'
+	'{'
+		'capaciteObjets' capaciteObjets=EInt
+		('composant' '(' composant+=[Composant|EString] ( "," composant+=[Composant|EString])* ')' )?
+	'}';
+
+EString returns ecore::EString:
+	STRING | ID;
+
+Composant_Impl returns Composant:
+	visible?='visible'
+	'Composant'
+	;
+
+Chemin returns Chemin:
+	{Chemin}
+	'Chemin'
+	'{'
+		('condition' condition=Condition)?
+		('lieuArrivee' lieuArrivee=Lieu)?
+	'}';
+
+PersonnageNonJouable returns PersonnageNonJouable:
+	{PersonnageNonJouable}
+	'PersonnageNonJouable'
+	'{'
+		('composant' '(' composant+=[Composant|EString] ( "," composant+=[Composant|EString])* ')' )?
+		('action' '{' action+=Action ( "," action+=Action)* '}' )?
+	'}';
+
+EBoolean returns ecore::EBoolean:
+	'true' | 'false';
+
+Objet returns Objet:
+	visible?='visible'
+	'Objet'
+	'{'
+		('poids' poids=EInt)?
+	'}';
+
+Connaissance returns Connaissance:
+	visible?='visible'
+	'Connaissance'
+	;
+
+EInt returns ecore::EInt:
+	'-'? INT;
+
+Condition returns Condition:
+	{Condition}
+	'Condition'
+	'{'
+		('niveau' niveau=Niveau)?
+	'}';
+
+enum Niveau returns Niveau:
+				FACILE = 'FACILE' | MOYEN = 'MOYEN' | DIFFICILE = 'DIFFICILE';
+
+Action returns Action:
+	{Action}
+	'Action'
+	;
