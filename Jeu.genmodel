@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/ProjetGLS/src" modelPluginID="ProjetGLS" modelName="Jeu"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>Jeu.ecore</foreignModel>
+  <genPackages prefix="Jeu" disposableProviderFactory="true" ecorePackage="Jeu.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Jeu.ecore#//Niveau">
+      <genEnumLiterals ecoreEnumLiteral="Jeu.ecore#//Niveau/FACILE"/>
+      <genEnumLiterals ecoreEnumLiteral="Jeu.ecore#//Niveau/MOYEN"/>
+      <genEnumLiterals ecoreEnumLiteral="Jeu.ecore#//Niveau/DIFFICILE"/>
+    </genEnums>
+    <genClasses ecoreClass="Jeu.ecore#//Jeu">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//Jeu/lieuDebut"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//Jeu/lieu"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//Jeu/lieuFin"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//Jeu/explorateur"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jeu.ecore#//Jeu/nom"/>
+    </genClasses>
+    <genClasses ecoreClass="Jeu.ecore#//Composant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jeu.ecore#//Composant/visible"/>
+    </genClasses>
+    <genClasses ecoreClass="Jeu.ecore#//Lieu">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//Lieu/composant"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//Lieu/chemin"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//Lieu/personnageObligatoire"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//Lieu/personnage"/>
+    </genClasses>
+    <genClasses ecoreClass="Jeu.ecore#//Explorateur">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jeu.ecore#//Explorateur/capaciteObjets"/>
+    </genClasses>
+    <genClasses ecoreClass="Jeu.ecore#//Chemin">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//Chemin/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//Chemin/lieuArrivee"/>
+    </genClasses>
+    <genClasses ecoreClass="Jeu.ecore#//PersonnageNonJouable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Jeu.ecore#//PersonnageNonJouable/action"/>
+    </genClasses>
+    <genClasses ecoreClass="Jeu.ecore#//Condition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jeu.ecore#//Condition/niveau"/>
+    </genClasses>
+    <genClasses ecoreClass="Jeu.ecore#//Action"/>
+    <genClasses ecoreClass="Jeu.ecore#//Objet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Jeu.ecore#//Objet/poids"/>
+    </genClasses>
+    <genClasses ecoreClass="Jeu.ecore#//Connaissance"/>
+    <genClasses image="false" ecoreClass="Jeu.ecore#//Personnage">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Jeu.ecore#//Personnage/composant"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
